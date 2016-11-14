@@ -5,6 +5,7 @@
 #include "Sam.h"
 #include "TaLa.h"
 #include "Xito.h"
+#include "SimpleAudioEngine.h"
 #include "XocDia.h"
 USING_NS_CC;
 using namespace ui;
@@ -40,6 +41,8 @@ bool PhongCho::init()
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("sounds/nhacnen.mp3");
 
 	ui::ScrollView *scrollview = ui::ScrollView::create();
 	scrollview->setDirection(ui::ScrollView::Direction::HORIZONTAL);
@@ -192,17 +195,20 @@ bool PhongCho::init()
 	});
 	this->addChild(back, 2);
 
+	auto layer = LayerGradient::create(Color4B(255, 0, 0, 255), Color4B(255, 0, 255, 255));
+	layer->setContentSize(Size(280, 80));
+	layer->setPosition(Vec2(1500, 950));
+	addChild(layer);
+
 	auto phone = Button::create("icon-phone.png");
 	phone->setPosition(Vec2(origin.x + phone->getContentSize().width*1.5,
 		origin.y + visibleSize.height - phone->getContentSize().height / 2));
 	phone->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type){
 		switch (type)
 		{
-		case cocos2d::ui::Widget::TouchEventType::BEGAN:
-			break;
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
-			auto dienthoai = Scene::create();
-			Director::getInstance()->pushScene(dienthoai);
+			auto move = MoveTo::create(0.5, Point(Vec2(200, 200)));
+			layer->runAction(move);
 			break;
 		}
 	});

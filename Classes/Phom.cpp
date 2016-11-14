@@ -31,6 +31,10 @@ bool Phom::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+	auto backgroundMenu = Sprite::create("backgruond.png");
+	backgroundMenu->setPosition(visibleSize / 2);
+	this->addChild(backgroundMenu, 0);
+
 	auto back = Button::create("iconback.png");
 	back->setPosition(Vec2(origin.x + back->getContentSize().width / 2,
 		origin.y + visibleSize.height - back->getContentSize().height / 2));
@@ -123,5 +127,17 @@ bool Phom::init()
 		origin.y + tienxu->getContentSize().height / 1.5));
 	tienxu->setScale(0.8);
 	this->addChild(tienxu);
+
+	auto taoban = Button::create("taoban.png");
+	taoban->setPosition(Vec2(origin.x + taoban->getContentSize().width / 2,
+		origin.y + taoban->getContentSize().height*1.2 + menu->getContentSize().height));
+	taoban->setScale(0.8);
+	this->addChild(taoban);
+
+	auto choingay = Button::create("choingay.png");
+	choingay->setPosition(Vec2(origin.x + taoban->getContentSize().width / 2,
+		origin.y + visibleSize.height / 2 + choingay->getContentSize().height / 1.8));
+	choingay->setScale(0.8);
+	this->addChild(choingay);
     return true;
 }
