@@ -1,64 +1,86 @@
-#include "Popup.h"
+///@ Popup.cpp
 
-bool Popup::init()
-{
-	if (!Node::init()) return false;
 
-	visibleSize = Director::getInstance()->getVisibleSize();
-	origin = Director::getInstance()->getVisibleOrigin();
+#include "Popup.hpp"
 
-	popupLayer = Layer::create();
-	popupLayer->setAnchorPoint(Vec2::ZERO);
-	popupLayer->setPosition(Vec2(visibleSize.width + origin.x, origin.y));
-	addChild(popupLayer);
+bool Popup::init() {
+    if (!Node::init())
+        return false;
+    this->setAnchorPoint(Point::ZERO);
+    visibleSize = Director::getInstance()->getVisibleSize();
+    origin = Director::getInstance()->getVisibleOrigin();
 
-	auto _background = Sprite::create("backgruond.png");
-	_background->setAnchorPoint(Vec2::ZERO);
-	_background->setPosition(Point::ZERO);
-	popupLayer->addChild(_background);
+    background = LayerColor::create(Color4B(0,0,0,160));
+    background->setContentSize(Size(960, 600));
+    background->setPosition(Vec2(origin.x,origin.y));
+    background->setOpacity(0);
 
-	backgroundContentSize = _background->getContentSize();
+    this->addChild(background);
+    
+    auto touchListener = cocos2d::EventListenerTouchOneByOne::create();
+    touchListener->setSwallowTouches(true);
+    touchListener->onTouchBegan = [&](cocos2d::Touch* touch, cocos2d::Event* event) {
+        return true;
+    };
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, background);
 
-		appearAction = TargetedAction::create(popupLayer,
-		MoveTo::create(1, Vec2(visibleSize.width - backgroundContentSize.width + origin.x, origin.y)));
+    m_popupLayer = Layer::create();
+	m_popupLayer->setContentSize(Size(960, 600));
+    m_popupLayer->setAnchorPoint(Vec2::ZERO);
+    m_popupLayer->setPosition(Vec2(origin.x,origin.y - visibleSize.height));
+    addChild(m_popupLayer);
 
-	disappearAction = TargetedAction::create(popupLayer,
-		MoveTo::create(1, Vec2(visibleSize.width + origin.x, origin.y)));
+	backgroundPopup = Sprite::create("backgruondPopup.png");
+	backgroundPopup->setPosition(visibleSize / 2);
+	m_popupLayer->addChild(backgroundPopup, 100);
 
-	appearAction->retain();
-	disappearAction->retain();
-
-	return true;
+    disablePopup = true;
+    return true;
 }
 
-void Popup::disappear()
-{
-	this->runAction(disappearAction->clone());
+void Popup::disappear() {
+    
+    auto callDisappear = CallFunc::create([this](){
+        background->runAction(FadeTo::create(0.15f, 0));
+        disablePopup = true;
+        this->removeFromParentAndCleanup(true);
+    });
+    m_popupLayer->runAction(Sequence::create(MoveTo::create(0.15f,Vec2(origin.x, origin.y - visibleSize.height)),
+                                             callDisappear, NULL));
 }
 
-void Popup::appear()
-{
-	this->runAction(appearAction->clone());
+void Popup::appear() {
+    auto touchListener = cocos2d::EventListenerTouchOneByOne::create();
+    touchListener->setSwallowTouches(true);
+    
+    touchListener->onTouchBegan = [&](cocos2d::Touch* touch, cocos2d::Event* event) {
+        auto target = static_cast<Sprite*>(event->getCurrentTarget());
+        
+        //Get the position of the current point relative to the button
+        Point locationInNode = target->convertToNodeSpace(touch->getLocation());
+        Size s = target->getContentSize();
+        Rect rect = Rect(0, 0, s.width, s.height);
+        
+        //Check the click area
+        if (!rect.containsPoint(locationInNode)){
+            this->disappear();
+            return true;
+        }
+        return false;
+    };
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, backgroundPopup);
+    
+    auto callAppear = CallFunc::create([this](){
+        background->runAction(FadeTo::create(0.15f, 200));
+        disablePopup = false;
+    });
+    
+    m_popupLayer->runAction(Sequence::create(MoveTo::create(0.15f,Vec2(origin.x, origin.y)),
+                                             callAppear, nullptr));
+    
 }
 
-void Popup::setTitlePopup(std::string _titlePopup)
-{
-	auto _title = Label::createWithTTF("Popup",	"fonts/Marker Felt.ttf", 25);
-
-	_title->setAdditionalKerning(7.0f);
-	_title->setPosition(Point(backgroundContentSize.width / 2 + origin.x,
-		backgroundContentSize.height * 8 / 10 + origin.y));
-
-	_title->setColor(Color3B::YELLOW);
-	_title->setScale(1.5f);
-
-	popupLayer->addChild(_title);
-}
-
-void Popup::onExit()
-{
-	appearAction->release();
-	disappearAction->release();
-
-	Node::onExit();
+void Popup::onExit() {
+    
+    Node::onExit();
 }

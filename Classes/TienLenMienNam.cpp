@@ -70,7 +70,7 @@ bool TienLenMienNam::init()
 	auto group = Sprite::create("tienlen.png");
 	group->setPosition(Vec2(origin.x + group->getContentSize().width /1.35,
 		origin.y + visibleSize.height - phone->getContentSize().height / 1.7));
-	group->setScale(0.8);
+	group->setScale(0.8f);
 	this->addChild(group);
 
 	auto menu = Sprite::create("menu.png");
@@ -109,14 +109,12 @@ bool TienLenMienNam::init()
 	auto label1 = Label::createWithTTF("NganNguyen", "fonts/Marker Felt.ttf", 30);
 	label1->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
 		origin.y + khungavatar->getContentSize().height - label1->getContentSize().height));
-	label1->setZOrder(100);
-	this->addChild(label1);
+	this->addChild(label1, 100);
 
 	auto label2 = Label::createWithTTF("ID: 25251325", "fonts/Marker Felt.ttf", 25);
 	label2->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
 		origin.y + label2->getContentSize().height));
-	label2->setZOrder(100);
-	this->addChild(label2);
+	this->addChild(label2, 100);
 
 	auto vip = Sprite::create("vip1.png");
 	vip->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
@@ -126,25 +124,25 @@ bool TienLenMienNam::init()
 	auto tienken = Button::create("xu.png");
 	tienken->setPosition(Vec2(origin.x + visibleSize.width / 2 - tienken->getContentSize().width / 1.1,
 		origin.y + tienken->getContentSize().height * 2));
-	tienken->setScale(0.8);
+	tienken->setScale(0.8f);
 	this->addChild(tienken);
 
 	auto tienxu = Button::create("xu.png");
 	tienxu->setPosition(Vec2(origin.x + visibleSize.width / 2 - tienxu->getContentSize().width / 1.1,
 		origin.y + tienxu->getContentSize().height / 1.5));
-	tienxu->setScale(0.8);
+	tienxu->setScale(0.8f);
 	this->addChild(tienxu);
 
 	auto taoban = Button::create("taoban.png");
 	taoban->setPosition(Vec2(origin.x + taoban->getContentSize().width / 2,
 		origin.y + taoban->getContentSize().height*1.2 + menu->getContentSize().height));
-	taoban->setScale(0.8);
+	taoban->setScale(0.8f);
 	this->addChild(taoban);
 
 	auto choingay = Button::create("choingay.png");
 	choingay->setPosition(Vec2(origin.x + taoban->getContentSize().width / 2,
 		origin.y + visibleSize.height / 2 + choingay->getContentSize().height / 1.8));
-	choingay->setScale(0.8);
+	choingay->setScale(0.8f);
 	this->addChild(choingay);
 
     return true;

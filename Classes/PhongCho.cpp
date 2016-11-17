@@ -6,6 +6,7 @@
 #include "TaLa.h"
 #include "Xito.h"
 #include "SimpleAudioEngine.h"
+#include "PopupAvatar.h"
 #include "XocDia.h"
 USING_NS_CC;
 using namespace ui;
@@ -23,7 +24,6 @@ Scene* PhongCho::createScene()
     // return the scene
     return scene;
 }
-
 Scene *gameXito;
 Scene *gameTala;
 Scene *gameXocdia;
@@ -42,7 +42,7 @@ bool PhongCho::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("sounds/nhacnen.mp3");
+	
 
 	ui::ScrollView *scrollview = ui::ScrollView::create();
 	scrollview->setDirection(ui::ScrollView::Direction::HORIZONTAL);
@@ -57,7 +57,7 @@ bool PhongCho::init()
 		auto gamephom = Button::create("phom.png");
 		gamephom->setPosition(Vec2(origin.x + gamephom->getContentSize().width *1.3,
 			origin.y + visibleSize.height - gamephom->getContentSize().height / 1.4));
-		gamephom->setScale(0.8);
+		gamephom->setScale(0.8f);
 		gamephom->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type){
 			switch (type)
 			{
@@ -74,7 +74,7 @@ bool PhongCho::init()
 		auto gameTLMN = Button::create("tlmn.png");
 		gameTLMN->setPosition(Vec2(origin.x + gamephom->getContentSize().width *1.3,
 			origin.y + visibleSize.height - gamephom->getContentSize().height*1.45));
-		gameTLMN->setScale(0.8);
+		gameTLMN->setScale(0.8f);
 		gameTLMN->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type){
 			switch (type)
 			{
@@ -88,7 +88,7 @@ bool PhongCho::init()
 		auto gamexocdia = Button::create("xocdia.png");
 		gamexocdia->setPosition(Vec2(origin.x + gamephom->getContentSize().width * 3.5,
 			origin.y + visibleSize.height - gamephom->getContentSize().height*1.45));
-		gamexocdia->setScale(0.8);
+		gamexocdia->setScale(0.8f);
 		gamexocdia->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type){
 			switch (type)
 			{
@@ -105,7 +105,7 @@ bool PhongCho::init()
 		auto gamesam = Button::create("sam.png");
 		gamesam->setPosition(Vec2(origin.x + gamephom->getContentSize().width *2.4,
 			origin.y + visibleSize.height - gamephom->getContentSize().height*1.45));
-		gamesam->setScale(0.82);
+		gamesam->setScale(0.82f);
 		gamesam->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type){
 			switch (type)
 			{
@@ -122,7 +122,7 @@ bool PhongCho::init()
 		auto gametala = Button::create("TA-LA.png");
 		gametala->setPosition(Vec2(origin.x + gamephom->getContentSize().width * 3.5,
 			origin.y + visibleSize.height - gamephom->getContentSize().height / 1.4));
-		gametala->setScale(0.8);
+		gametala->setScale(0.8f);
 		gametala->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type){
 			switch (type)
 			{
@@ -139,7 +139,7 @@ bool PhongCho::init()
 		auto gamexito = Button::create("xito.png");
 		gamexito->setPosition(Vec2(origin.x + gamephom->getContentSize().width *2.4,
 			origin.y + visibleSize.height - gamephom->getContentSize().height / 1.4));
-		gamexito->setScale(0.8);
+		gamexito->setScale(0.8f);
 		gamexito->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type){
 			switch (type)
 			{
@@ -153,7 +153,7 @@ bool PhongCho::init()
 		});
 		scrollview->addChild(gamexito);
 	}
-	this->addChild(scrollview, 1);
+	this->addChild(scrollview, 2);
 
 	auto backgroundMenu = Sprite::create("backgruond.png");
 	backgroundMenu->setPosition(visibleSize / 2);
@@ -167,13 +167,6 @@ bool PhongCho::init()
 	auto loa = Sprite::create("loa.png");
 	loa->setPosition(Vec2(300, 670));
 	this->addChild(loa, 2);
-
-	auto label = Label::createWithTTF("Chào mừng bạn đã đến với Game Bài Đổi Thưởng BigKen Online",
-		"fonts/Marker Felt.ttf", 25);
-	label->setPosition(Vec2(330, 670));
-	label->setColor(Color3B::WHITE);
-	label->setZOrder(100);
-	this->addChild(label);
 
 	auto menu = Sprite::create("menu.png");
 	menu->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + menu->getContentSize().height / 2));
@@ -233,9 +226,25 @@ bool PhongCho::init()
 	DoiThuong->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + DoiThuong->getContentSize().height / 2));
 	this->addChild(DoiThuong, 2);
 
+	PopupAvatar  *m_PopupAvatar = PopupAvatar::create();
+	m_PopupAvatar->setScaleY(0.8f);
+	this->addChild(m_PopupAvatar, 2);
+
 	auto caidat = Button::create("CAI-DAT.png");
 	caidat->setPosition(Vec2(origin.x + visibleSize.width - caidat->getContentSize().width / 2,
 		origin.y + caidat->getContentSize().height / 2));
+	caidat->addTouchEventListener([=](Ref *sender, Widget::TouchEventType type){
+		switch (type)
+		{
+		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
+			m_PopupAvatar->appear();
+			break;
+		default:
+			break;
+		}
+	});
 	this->addChild(caidat, 2);
 
 	auto banbe = Button::create("banbe.png");
@@ -261,14 +270,12 @@ bool PhongCho::init()
 	auto label1 = Label::createWithTTF("NganNguyen", "fonts/Marker Felt.ttf", 30);
 	label1->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
 		origin.y + khungavatar->getContentSize().height - label1->getContentSize().height));
-	label1->setZOrder(100);
-	this->addChild(label1, 2);
+	this->addChild(label1, 100);
 
 	auto label2 = Label::createWithTTF("ID: 25251325", "fonts/Marker Felt.ttf", 25);
 	label2->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
 		origin.y + label2->getContentSize().height));
-	label2->setZOrder(100);
-	this->addChild(label2);
+	this->addChild(label2, 100);
 
 	auto vip = Sprite::create("vip1.png");
 	vip->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
@@ -278,13 +285,13 @@ bool PhongCho::init()
 	auto tienken = Button::create("xu.png");
 	tienken->setPosition(Vec2(origin.x + visibleSize.width / 2 - tienken->getContentSize().width / 1.1,
 		origin.y + tienken->getContentSize().height * 2));
-	tienken->setScale(0.8);
+	tienken->setScale(0.8f);
 	this->addChild(tienken, 2);
 
 	auto tienxu = Button::create("xu.png");
 	tienxu->setPosition(Vec2(origin.x + visibleSize.width / 2 - tienxu->getContentSize().width / 1.1,
 		origin.y + tienxu->getContentSize().height / 1.5));
-	tienxu->setScale(0.8);
+	tienxu->setScale(0.8f);
 	this->addChild(tienxu, 2);
 
 
