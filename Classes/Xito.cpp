@@ -102,14 +102,12 @@ bool XiTo::init()
 	auto label1 = Label::createWithTTF("NganNguyen", "fonts/Marker Felt.ttf", 30);
 	label1->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
 		origin.y + khungavatar->getContentSize().height - label1->getContentSize().height));
-	label1->setZOrder(100);
-	this->addChild(label1);
+	this->addChild(label1,100);
 
 	auto label2 = Label::createWithTTF("ID: 25251325", "fonts/Marker Felt.ttf", 25);
 	label2->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
 		origin.y + label2->getContentSize().height));
-	label2->setZOrder(100);
-	this->addChild(label2);
+	this->addChild(label2,100);
 
 	auto vip = Sprite::create("vip1.png");
 	vip->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
