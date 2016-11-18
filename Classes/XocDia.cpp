@@ -1,6 +1,7 @@
 ﻿#include "XocDia.h"
 #include "ui/CocosGUI.h"
 #include "PhongCho.h"
+#include "XocDiaBan1.h"
 USING_NS_CC;
 using namespace ui;
 Scene* XocDia::createScene()
@@ -65,7 +66,6 @@ bool XocDia::init()
 		}
 	});
 	this->addChild(phone);
-
 	auto menu = Sprite::create("menu.png");
 	menu->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + menu->getContentSize().height / 2));
 	this->addChild(menu);
@@ -102,14 +102,12 @@ bool XocDia::init()
 	auto label1 = Label::createWithTTF("NganNguyen", "fonts/Marker Felt.ttf", 30);
 	label1->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
 		origin.y + khungavatar->getContentSize().height - label1->getContentSize().height));
-	label1->setZOrder(100);
-	this->addChild(label1);
+	this->addChild(label1,100);
 
 	auto label2 = Label::createWithTTF("ID: 25251325", "fonts/Marker Felt.ttf", 25);
 	label2->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
 		origin.y + label2->getContentSize().height));
-	label2->setZOrder(100);
-	this->addChild(label2);
+	this->addChild(label2,100);
 
 	auto vip = Sprite::create("vip1.png");
 	vip->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
@@ -138,6 +136,16 @@ bool XocDia::init()
 	choingay->setPosition(Vec2(origin.x + taoban->getContentSize().width / 2,
 		origin.y + visibleSize.height / 2 + choingay->getContentSize().height / 1.8));
 	choingay->setScale(0.8);
+	choingay->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type){
+		switch (type)
+		{
+		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
+			Director::getInstance()->replaceScene(XocDiaBan1::createScene());
+			break;
+		}
+	});
 	this->addChild(choingay);
 
     return true;

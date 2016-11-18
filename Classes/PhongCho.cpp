@@ -53,7 +53,7 @@ bool PhongCho::init()
 	scrollview->setBounceEnabled(true);
 	scrollview->setAnchorPoint(Vec2(0.5, 0.5));
 	scrollview->setPosition(visibleSize / 2);
-	for (int i = 0; i < 30; i++){
+	for (int i = 0; i < 12; i++){
 		auto gamephom = Button::create("phom.png");
 		gamephom->setPosition(Vec2(origin.x + gamephom->getContentSize().width *1.3,
 			origin.y + visibleSize.height - gamephom->getContentSize().height / 1.4));
@@ -172,8 +172,7 @@ bool PhongCho::init()
 		"fonts/Marker Felt.ttf", 25);
 	label->setPosition(Vec2(330, 670));
 	label->setColor(Color3B::WHITE);
-	label->setZOrder(100);
-	this->addChild(label);
+	this->addChild(label,100);
 
 	auto menu = Sprite::create("menu.png");
 	menu->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + menu->getContentSize().height / 2));
@@ -194,12 +193,6 @@ bool PhongCho::init()
 		}
 	});
 	this->addChild(back, 2);
-
-	auto layer = LayerGradient::create(Color4B(255, 0, 0, 255), Color4B(255, 0, 255, 255));
-	layer->setContentSize(Size(280, 80));
-	layer->setPosition(Vec2(1500, 950));
-	addChild(layer);
-
 	auto phone = Button::create("icon-phone.png");
 	phone->setPosition(Vec2(origin.x + phone->getContentSize().width*1.5,
 		origin.y + visibleSize.height - phone->getContentSize().height / 2));
@@ -207,8 +200,6 @@ bool PhongCho::init()
 		switch (type)
 		{
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
-			auto move = MoveTo::create(0.5, Point(Vec2(200, 200)));
-			layer->runAction(move);
 			break;
 		}
 	});
@@ -261,14 +252,12 @@ bool PhongCho::init()
 	auto label1 = Label::createWithTTF("NganNguyen", "fonts/Marker Felt.ttf", 30);
 	label1->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
 		origin.y + khungavatar->getContentSize().height - label1->getContentSize().height));
-	label1->setZOrder(100);
-	this->addChild(label1, 2);
+	this->addChild(label1, 100);
 
 	auto label2 = Label::createWithTTF("ID: 25251325", "fonts/Marker Felt.ttf", 25);
 	label2->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
 		origin.y + label2->getContentSize().height));
-	label2->setZOrder(100);
-	this->addChild(label2);
+	this->addChild(label2,100);
 
 	auto vip = Sprite::create("vip1.png");
 	vip->setPosition(Vec2(origin.x + khungavatar->getContentSize().width + label1->getContentSize().width / 1.5,
