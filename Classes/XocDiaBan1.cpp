@@ -17,7 +17,6 @@ Scene* XocDiaBan1::createScene()
     // return the scene
     return scene;
 }
-
 // on "init" you need to initialize your instance
 bool XocDiaBan1::init()
 {
@@ -28,18 +27,22 @@ bool XocDiaBan1::init()
         return false;
     }
     
+		BACKGROUND_BLUE;
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	BACKGROUND_BLUE;
+	PopupAvatar *popupAvatar = PopupAvatar::create();
+	this->addChild(popupAvatar);
+
 	auto avatar1 = Button::create("khungavataa.png");
 	avatar1->setPosition(Vec2(origin.x +avatar1->getContentSize().width/2, origin.y+avatar1->getContentSize().height/2));
-	avatar1->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type){
+	avatar1->addTouchEventListener([=](Ref *sender, Widget::TouchEventType type){
 		switch (type)
 		{
 		case cocos2d::ui::Widget::TouchEventType::BEGAN:
 			break;
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
+			popupAvatar->appear();
 			break;
 		}
 	});

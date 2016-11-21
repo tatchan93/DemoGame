@@ -42,8 +42,6 @@ bool PhongCho::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("sounds/nhacnen.mp3");
-
 	ui::ScrollView *scrollview = ui::ScrollView::create();
 	scrollview->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 	scrollview->setContentSize(Size(1280, 720));
