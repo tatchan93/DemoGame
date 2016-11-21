@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "ui/cocosGUI.h"
 #include <network/SocketIO.h>
+#include "PopupAvatar.h"
 
 using namespace cocos2d::network;
 using namespace cocos2d::ui;
@@ -17,7 +18,6 @@ public:
 
 	// a selector callback
 	void menuCloseCallback(cocos2d::Ref* pSender);
-
 	// implement the "static create()" method manually
 
 	// socket.io even\vent listener

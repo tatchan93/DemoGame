@@ -18,7 +18,7 @@ Scene* XocDia::createScene()
     // return the scene
     return scene;
 }
-
+Scene *banxocdia;
 // on "init" you need to initialize your instance
 bool XocDia::init()
 {
@@ -117,32 +117,33 @@ bool XocDia::init()
 	auto tienken = Button::create("xu.png");
 	tienken->setPosition(Vec2(origin.x + visibleSize.width / 2 - tienken->getContentSize().width / 1.1,
 		origin.y + tienken->getContentSize().height * 2));
-	tienken->setScale(0.8);
+	tienken->setScale(0.8f);
 	this->addChild(tienken);
 
 	auto tienxu = Button::create("xu.png");
 	tienxu->setPosition(Vec2(origin.x + visibleSize.width / 2 - tienxu->getContentSize().width / 1.1,
 		origin.y + tienxu->getContentSize().height / 1.5));
-	tienxu->setScale(0.8);
+	tienxu->setScale(0.8f);
 	this->addChild(tienxu);
 
 	auto taoban = Button::create("taoban.png");
 	taoban->setPosition(Vec2(origin.x + taoban->getContentSize().width / 2,
 		origin.y + taoban->getContentSize().height*1.2 + menu->getContentSize().height));
-	taoban->setScale(0.8);
+	taoban->setScale(0.8f);
 	this->addChild(taoban);
 
 	auto choingay = Button::create("choingay.png");
 	choingay->setPosition(Vec2(origin.x + taoban->getContentSize().width / 2,
 		origin.y + visibleSize.height / 2 + choingay->getContentSize().height / 1.8));
-	choingay->setScale(0.8);
+	choingay->setScale(0.8f);
 	choingay->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type){
 		switch (type)
 		{
 		case cocos2d::ui::Widget::TouchEventType::BEGAN:
 			break;
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
-			Director::getInstance()->replaceScene(XocDiaBan1::createScene());
+			banxocdia = XocDiaBan1::createScene();
+			Director::getInstance()->replaceScene(banxocdia);
 			break;
 		}
 	});
