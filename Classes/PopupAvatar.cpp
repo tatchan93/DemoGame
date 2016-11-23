@@ -146,21 +146,6 @@ bool PopupAvatar::init()
 	xu->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
 	m_popupLayer->addChild(xu, 100);
 
-	auto close = Button::create("closePopup.png");
-	close->setPosition(Vec2(origin.x + visibleSize.width, origin.y + visibleSize.height));
-	close->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-			break;
-		case ui::Widget::TouchEventType::ENDED:
-			break;
-		default:
-			break;
-		}
-	});
-	m_popupLayer->addChild(close);
-
     return true;
 }
 void PopupAvatar::onExit()

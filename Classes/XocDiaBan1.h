@@ -5,6 +5,7 @@
 #include "ui/cocosGUI.h"
 #include <network/SocketIO.h>
 #include "PopupAvatar.h"
+#include "Popup.hpp"
 
 using namespace cocos2d::network;
 using namespace cocos2d::ui;

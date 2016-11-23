@@ -6,7 +6,7 @@
 bool Popup::init() {
     if (!Node::init())
         return false;
-    this->setAnchorPoint(Point::ZERO);
+
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
 
