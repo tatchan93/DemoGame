@@ -30,8 +30,54 @@ bool XocDiaBan1::init()
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	auto background = Sprite::create("backgruond.png");
+	background->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	this->addChild(background, 0);
+	auto table = Sprite::create("xocdia/tablegray.jpg");
+	table->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	table->setScale(0.8);
+	this->addChild(table, 1);
+	auto dia = Sprite::create("xocdia/bk_dia.png");
+	dia->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2 + dia->getContentSize().height/2-10));
+	dia->setScale(0.8);
+	this->addChild(dia, 3);
 
-	BACKGROUND_BLUE;
+	auto cuocLeft = Sprite::create("xocdia/bg_cuoc.png");
+	cuocLeft->setScale(0.8);
+	cuocLeft->setPosition(Vec2(origin.x + visibleSize.width / 2 - cuocLeft->getContentSize().width / 2 +35,
+		origin.y + visibleSize.height / 2 + cuocLeft->getContentSize().height / 2));
+	this->addChild(cuocLeft, 2);
+
+	auto cuocRight = Sprite::create("xocdia/bg_cuoc.png");
+	cuocRight->setScale(0.8);
+	cuocRight->setRotation(180);
+	cuocRight->setPosition(Vec2(origin.x + visibleSize.width / 2 + cuocRight->getContentSize().width / 2-35,
+		origin.y + visibleSize.height / 2 + cuocRight->getContentSize().height / 2));
+	this->addChild(cuocRight, 2);
+auto khungCuoc2 = Sprite::create("xocdia/khung_cuoc.png");
+	khungCuoc2->setScale(0.8);
+	khungCuoc2->setPosition(Vec2(origin.x + visibleSize.width / 2 - khungCuoc2->getContentSize().width/2 -15,
+		origin.y +visibleSize.height/2 -50 - khungCuoc2->getContentSize().height/2));
+	this->addChild(khungCuoc2, 2);
+	auto khungCuoc1 = Sprite::create("xocdia/khung_cuoc.png");
+	khungCuoc1->setScale(0.8);
+	khungCuoc1->setPosition(Vec2(origin.x + visibleSize.width / 2 - khungCuoc2->getContentSize().width - khungCuoc1->getContentSize().width/2- 30, 
+		origin.y + visibleSize.height / 2 - 50 - khungCuoc2->getContentSize().height / 2));
+	this->addChild(khungCuoc1, 2);
+	
+
+	auto khungCuoc3 = Sprite::create("xocdia/khung_cuoc.png");
+	khungCuoc3->setScale(0.8);
+	khungCuoc3->setPosition(Vec2(origin.x + visibleSize.width / 2 +15 +khungCuoc3->getContentSize().width/2,
+		origin.y + visibleSize.height / 2 - 50 - khungCuoc2->getContentSize().height / 2));
+	this->addChild(khungCuoc3, 2);
+
+	auto khungCuoc4 = Sprite::create("xocdia/khung_cuoc.png");
+	khungCuoc4->setScale(0.8);
+	khungCuoc4->setPosition(Vec2(origin.x + visibleSize.width / 2+30 +khungCuoc3->getContentSize().width+ khungCuoc4->getContentSize().width/2,
+		origin.y + visibleSize.height / 2 - 50 - khungCuoc2->getContentSize().height / 2));
+	this->addChild(khungCuoc4, 2);
+
 	auto avatar1 = Button::create("khungavataa.png");
 	avatar1->setPosition(Vec2(origin.x +avatar1->getContentSize().width/2, origin.y+avatar1->getContentSize().height/2));
 	avatar1->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type){
@@ -174,7 +220,7 @@ bool XocDiaBan1::init()
 	// connect to server
 	_client = SocketIO::connect("http://127.0.0.1:8888", *this);
 	_client->on("message", CC_CALLBACK_2(XocDiaBan1::onReceiveEvent, this));
-	_client->emit("message", "tin nhan toi server");
+	_client->emit("message", "hi, this is new emit");
 
 	return true;
 }

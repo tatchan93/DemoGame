@@ -4,7 +4,9 @@
 #include "cocos2d.h"
 #include "ui/cocosGUI.h"
 #include <network/SocketIO.h>
-
+#include "json\document.h"
+#include "json\rapidjson.h"
+using namespace rapidjson;
 using namespace cocos2d::network;
 using namespace cocos2d::ui;
 
@@ -29,7 +31,7 @@ public:
 	virtual void onError(SIOClient* client, const std::string& data);
 
 	CREATE_FUNC(XocDiaBan1);
-
+	
 protected:
 private:
 	int index;
