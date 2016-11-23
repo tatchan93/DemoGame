@@ -25,10 +25,10 @@ const int		SCREEN_HEIGHT			 = 720;
 
 //real server
 //ip address
-//const char* SERVER_NAME = "124.158.6.205";
+const char* SERVER_NAME = "124.158.6.205";
 
 //domain
-const char* SERVER_NAME = "bigken.net";
+//const char* SERVER_NAME = "bigken.net";
 const char* SERVER_PORT = "1240";
 
 // TLMN
